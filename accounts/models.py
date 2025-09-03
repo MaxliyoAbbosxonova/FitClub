@@ -1,13 +1,20 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-User = get_user_model()
 
+
+class User(AbstractUser):
+    phone = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
+
+    USERNAME_FIELD = "phone"
+    REQUIRED_FIELDS = ['username',"email"]
+
+    def __str__(self):
+        return self.phone
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15, unique=True)
-    img = models.ImageField(upload_to='profile', blank=True, null=True)
-
+    birth=models.CharField(null=True,blank=True)
     def __str__(self):
-        return f"{self.user.username}: {self.phone}"
+        return f"{self.user.first_name} {self.user.last_name}: {self.birth}"

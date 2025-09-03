@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render
 from rest_framework import generics
+
+from accounts.models import User
 from accounts.serializers import UserProfileSerializer
 
 

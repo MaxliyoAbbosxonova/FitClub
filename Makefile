@@ -1,6 +1,6 @@
 mig:
-	python manage.py makemigrations
-	python manage.py migrate
+	uv run python manage.py makemigrations
+	uv run python manage.py migrate
 sup:
-	python manage.oy createsuperuser
+	uv run python manage.py createsuperuser
 
