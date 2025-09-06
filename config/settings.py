@@ -118,6 +118,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'pagination.CustomPagination',
+    'PAGE_SIZE': 10,
+                  }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -136,7 +140,9 @@ STATIC_URL = 'static/'
 # STATICFILES_DIRS = [
 #     BASE_DIR / 'static'
 # ]
-AUTH_USER_MODEL = 'apps.accounts.User'
+import apps.accounts as accounts
+
+AUTH_USER_MODEL='accounts.User'
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

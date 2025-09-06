@@ -82,3 +82,4 @@ class UserProfileSerializer(serializers.Serializer):
 class VerifyEmailSerializer(serializers.Serializer):
     code = serializers.CharField()
     email = serializers.EmailField()
+    first_name = serializers.CharField(required=False)
