@@ -1,23 +1,26 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from rest_framework import serializers
-from accounts.models import Profile
+from apps.accounts.models import Profile, EmailVerification
+from apps.accounts.utils import generate_verification_code, send_verification_email
 
 User=get_user_model()
 
 class UserProfileSerializer(serializers.Serializer):
-    phone = serializers.CharField(max_length=15, required=True)
+    email = serializers.EmailField(allow_blank=True, required=False)
     first_name = serializers.CharField(max_length=30, allow_blank=True, required=False, validators=[])
     last_name = serializers.CharField(max_length=30, allow_blank=True, required=False)
-    email = serializers.EmailField(allow_blank=True, required=False)
+    phone = serializers.CharField(max_length=15, required=True)
     password = serializers.CharField(write_only=True)
     password_confirm = serializers.CharField(write_only=True)
     username=serializers.CharField(max_length=30,allow_null=True)
     birth = serializers.DateField(required=False)
+    is_active = serializers.BooleanField(default=False)
 
 
     def validate(self, attrs):
         password = attrs.get('password')
+
         if password:
             password_confirm = attrs.get('password_confirm')
             if not password_confirm:
@@ -26,6 +29,9 @@ class UserProfileSerializer(serializers.Serializer):
             if attrs['password'] != attrs['password_confirm']:
                 raise serializers.ValidationError('Password va Password confirm bir xil emas.')
         return attrs
+    
+    
+
 
     def create(self, validated_data):
         password=validated_data.pop('password',None)
@@ -36,6 +42,9 @@ class UserProfileSerializer(serializers.Serializer):
             user.set_password(password)
             user.save()
             Profile.objects.create(user=user,birth=birth)
+            code = generate_verification_code()
+            EmailVerification.objects.create(user=user, code=code)
+            send_verification_email(user, code)
         return user
 
     def update(self, instance, validated_data):
@@ -68,3 +77,8 @@ class UserProfileSerializer(serializers.Serializer):
                 "birth": birth
             }
         }
+
+
+class VerifyEmailSerializer(serializers.Serializer):
+    code = serializers.CharField()
+    email = serializers.EmailField()

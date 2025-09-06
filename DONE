@@ -1,0 +1,19 @@
+0. uv dan foydalanilsin to'liq project   - DONE
+1. User override qilin ( figmaga qarab ) - DONE
+2. user - create api - DONE
+3. user - update api ( put, patch)       - DONE
+4. swagger qo'shilsin                    - DONE
+
+
+
+
+sep - 5 14:00 -> 00:00 gacha topshiriladi .
+
+0. del my_project catalog ni ichidagi settingsni global qiling
+1. Userni emaili asosiy bogan narsasi boladi bizda telefon numberga
+   code yobora olmaganligimiz uchun phone validate qoshilsin username o'rniga - DONE
+2. emailga code yuborib account yaratilsin                                    - DONE
+3. visit , news , hamma applar 1 ta appsga keltirilsin                        - DONE
+4. config asosiy file root qilinsin
+5. User update api chiqarilsin                                                - DONE
+6. pagination class override qilinsin
