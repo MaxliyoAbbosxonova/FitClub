@@ -5,8 +5,8 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.accounts.models import User, EmailVerification
-from apps.accounts.serializers import UserProfileSerializer, VerifyEmailSerializer
+from apps.models import User, EmailVerification
+from apps.serializers import UserProfileSerializer, VerifyEmailSerializer
 
 
 # Create your views here.

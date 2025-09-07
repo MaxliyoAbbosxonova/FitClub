@@ -2,8 +2,7 @@ import uuid
 
 from django.core.mail import send_mail
 
-from apps.accounts import views
-from config import settings
+from root import settings
 
 
 def generate_verification_code():

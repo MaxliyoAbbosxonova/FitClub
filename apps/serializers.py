@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from rest_framework import serializers
-from apps.accounts.models import Profile, EmailVerification
-from apps.accounts.utils import generate_verification_code, send_verification_email
+from apps.models import Profile, EmailVerification
+from apps.utils import generate_verification_code, send_verification_email
 
 User=get_user_model()
 
